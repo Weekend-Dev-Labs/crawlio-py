@@ -1,11 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "crawlio-py"
 version = "0.1.1"
 description = "Python SDK for the Crawlio web scraping API"
-authors = [{ name="Kishan Sharma", email="kisshan07@outlook.com" }]
+authors = [
+    { name = "Kishan Sharma", email = "kisshan07@outlook.com" }
+]
 readme = "README.md"
-license = { file="LICENSE" }
+license = { file = "LICENSE" }
 requires-python = ">=3.7"
 dependencies = [
     "requests"
 ]
+
+[project.urls]
+"Homepage" = "https://crawlio.xyz"
+"Documentation" = "https://github.com/weekend-dev-labs/crawlio-py"
+"Source" = "https://github.com/weekend-dev-labs/crawlio-py"
