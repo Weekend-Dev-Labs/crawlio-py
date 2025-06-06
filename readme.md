@@ -1,8 +1,9 @@
+
 # 🕷️ Crawlio Python SDK
 
-**Crawlio** is a Python SDK for accessing the Crawlio API — a powerful service for web scraping, crawling, and content analysis. It supports single-page scraping, full site crawling, batch operations, and structured search across results.
+**Crawlio** is a Python SDK for accessing the [Crawlio API](https://crawlio.xyz) — a powerful service for web scraping, crawling, and content analysis. It supports single-page scraping, full-site crawling, batch operations, and structured search across results.
 
-[Visit Crawlio](https://crawlio.xyz)  [See Docs](https://docs.crawlio.xyz)
+👉 [Visit Crawlio](https://crawlio.xyz) | 📚 [View API Docs](https://docs.crawlio.xyz)
 
 ---
 
@@ -18,14 +19,16 @@ pip install crawlio-py
 
 ```python
 from crawlio.client import Crawlio
+from crawlio.types import ScrapeOptions
 
 client = Crawlio(api_key="your-api-key")
 
-result = client.scrape({
+options: ScrapeOptions = {
     "url": "https://example.com",
     "markdown": True
-})
+}
 
+result = client.scrape(options)
 print(result["markdown"])
 ```
 
@@ -33,9 +36,11 @@ print(result["markdown"])
 
 ## 🔐 Authentication
 
-You must pass your Crawlio `api_key` when instantiating the client.
+You must pass your Crawlio `api_key` when instantiating the client:
 
 ```python
+from crawlio.client import Crawlio
+
 client = Crawlio(api_key="your_api_key")
 ```
 
@@ -43,11 +48,13 @@ client = Crawlio(api_key="your_api_key")
 
 ## 🧭 Usage
 
-### `scrape(options: dict) -> dict`
+### `scrape(options: ScrapeOptions) -> ScrapeResponse`
 
 Scrape a single webpage.
 
 ```python
+from crawlio.types import ScrapeOptions
+
 client.scrape({
     "url": "https://example.com",
     "exclude": ["nav", "footer"],
@@ -57,11 +64,13 @@ client.scrape({
 
 ---
 
-### `crawl(options: dict) -> dict`
+### `crawl(options: CrawlOptions) -> CrawlResponse`
 
 Start a full-site crawl.
 
 ```python
+from crawlio.types import CrawlOptions
+
 client.crawl({
     "url": "https://example.com",
     "count": 10,
@@ -71,7 +80,7 @@ client.crawl({
 
 ---
 
-### `crawl_status(crawl_id: str) -> dict`
+### `crawl_status(crawl_id: str) -> CrawlStatusResponse`
 
 Check the status of a crawl job.
 
@@ -81,7 +90,7 @@ client.crawl_status("crawl123")
 
 ---
 
-### `crawl_results(crawl_id: str) -> dict`
+### `crawl_results(crawl_id: str) -> CrawlResultResponse`
 
 Get results from a completed crawl.
 
@@ -91,7 +100,7 @@ client.crawl_results("crawl123")
 
 ---
 
-### `search(query: str, options: dict = None) -> dict`
+### `search(query: str, options: Optional[SearchOptions] = None) -> SearchResponse`
 
 Search through previously scraped content.
 
@@ -101,7 +110,7 @@ client.search("privacy policy", {"site": "example.com"})
 
 ---
 
-### `batch_scrape(options: dict) -> dict`
+### `batch_scrape(options: BatchScrapeOptions) -> BatchScrapeResponse`
 
 Submit multiple URLs for scraping at once.
 
@@ -114,7 +123,7 @@ client.batch_scrape({
 
 ---
 
-### `batch_scrape_status(batch_id: str) -> dict`
+### `batch_scrape_status(batch_id: str) -> BatchScrapeStatusResponse`
 
 Check the status of a batch scrape.
 
@@ -124,7 +133,7 @@ client.batch_scrape_status("batch456")
 
 ---
 
-### `batch_scrape_result(batch_id: str) -> dict`
+### `batch_scrape_result(batch_id: str) -> BatchScrapeResultResponse`
 
 Retrieve results of a completed batch scrape.
 
@@ -152,6 +161,8 @@ All exceptions inherit from `CrawlioError`.
 Example:
 
 ```python
+from crawlio.exception import CrawlioError
+
 try:
     result = client.scrape({"url": "https://example.com"})
 except CrawlioError as e:
@@ -169,7 +180,7 @@ except CrawlioError as e:
   "jobId": "abc123",
   "html": "<html>...</html>",
   "markdown": "## Title",
-  "meta": {"title": "Example"},
+  "meta": { "title": "Example" },
   "urls": ["https://example.com/about"],
   "url": "https://example.com"
 }
@@ -180,5 +191,3 @@ except CrawlioError as e:
 ## 📃 License
 
 MIT License
-
----

@@ -1,6 +1,6 @@
 [project]
 name = "crawlio-py"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python SDK for the Crawlio web scraping API"
 authors = [{ name="Kishan Sharma", email="kisshan07@outlook.com" }]
 readme = "README.md"
